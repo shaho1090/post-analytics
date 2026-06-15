@@ -30,13 +30,15 @@
             "Database\\Seeders\\": "database/seeders/",
             "User\\": "Modules/User/",
             "Notification\\": "Modules/Notification/",
-            "Shared\\": "Modules/Shared/"
+            "Shared\\": "Modules/Shared/",
+            "Post\\": "Modules/Post/"
         }
     },
     "autoload-dev": {
         "psr-4": {
             "Tests\\": "tests/",
-            "Modules\\User\\Tests\\": "Modules/User/Tests/"
+            "Modules\\User\\Tests\\": "Modules/User/Tests/",
+            "Modules\\Post\\Tests\\": "Modules/Post/Tests/"
         }
     },
     "scripts": {

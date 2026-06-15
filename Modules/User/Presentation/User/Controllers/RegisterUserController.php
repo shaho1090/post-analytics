@@ -18,7 +18,7 @@ class RegisterUserController
                 'message' => 'Registration is successfully done.'
             ],201);
         }catch (\Exception $ex){
-            Log::error('admin login failed', [
+            Log::error('user registration failed', [
                 'message' => $ex->getMessage(),
                 'trace' => $ex->getTraceAsString(),
             ]);

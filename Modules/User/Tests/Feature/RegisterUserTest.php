@@ -5,9 +5,10 @@ namespace User\Tests\Feature;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
+use User\Data\Models\User;
 use User\Tasks\CreateUserTask;
 
-class UserRegisterTest extends TestCase
+class RegisterUserTest extends TestCase
 {
     use RefreshDatabase;
     use WithFaker;

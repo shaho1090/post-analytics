@@ -2,8 +2,8 @@
 
 namespace User\Tasks;
 
-use User\Models\User;
 use Shared\Support\Task;
+use User\Data\Models\User;
 
 class CreateUserTask extends Task
 {

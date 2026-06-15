@@ -1,0 +1,75 @@
+services:
+    app:
+        build:
+            context: .
+            dockerfile: docker/Dockerfile
+        volumes:
+            - .:/var/www/html
+        networks:
+            - wst-net
+
+    nginx:
+        image: nginx:alpine
+        ports:
+            - "${NGINX_PORT:-8000}:80"
+        volumes:
+            - .:/var/www/html
+            - ./docker/nginx/default.conf:/etc/nginx/conf.d/default.conf
+        depends_on:
+            - app
+        networks:
+            - wst-net
+
+    postgres:
+        image: postgres:17
+        environment:
+            POSTGRES_DB: "${DB_DATABASE}"
+            POSTGRES_USER: "${DB_USERNAME}"
+            POSTGRES_PASSWORD: "${DB_PASSWORD}"
+        ports:
+            - "${POSTGRES_PORT:-5432}:5432"
+        volumes:
+            - wst-db-data:/var/lib/postgresql/data
+        networks:
+            - wst-net
+
+    postgres-test:
+        image: postgres:17
+        profiles:
+            - dev
+        environment:
+            POSTGRES_DB: "${DB_DATABASE_TESTING}"
+            POSTGRES_USER: "${DB_USERNAME_TESTING}"
+            POSTGRES_PASSWORD: "${DB_PASSWORD_TESTING}"
+        ports:
+            - "5433:5432"
+        tmpfs:
+            - /var/lib/postgresql/data
+        networks:
+            - wst-net
+
+    adminer:
+        image: adminer:latest
+        profiles:
+            - dev
+        ports:
+            - "${ADMINER_PORT:-8383}:8080"
+        environment:
+            ADMINER_SERVER: postgres
+            ADMINER_USERNAME: "${DB_USERNAME}"
+            ADMINER_PASSWORD: "${DB_PASSWORD}"
+            ADMINER_DATABASE: "${DB_DATABASE}"
+        networks:
+            - wst-net
+    redis:
+        image: redis:8-alpine
+        ports:
+            - "${REDIS_PORT:-6379}:6379"
+        networks:
+            - wst-net
+
+networks:
+    wst-net:
+
+volumes:
+    wst-db-data:

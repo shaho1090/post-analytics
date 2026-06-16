@@ -6,12 +6,14 @@ use Post\Presentation\User\Controllers\FindPostByIdController;
 use Post\Presentation\User\Controllers\GetAllPostsController;
 use Post\Presentation\User\Controllers\GetPostAnalyticsSummeryController;
 use Post\Presentation\User\Controllers\GetPostDailyAnalyticsController;
+use Post\Presentation\User\Controllers\GetTopViewedPostsController;
 
 Route::prefix('api/posts')
     ->group(function () {
         Route::get('', GetAllPostsController::class);
         Route::get('{id}/analytics/daily', GetPostDailyAnalyticsController::class);
         Route::get('{id}/analytics/summary', GetPostAnalyticsSummeryController::class);
+        Route::get('top-viewed', GetTopViewedPostsController::class);
 
         Route::post('', CreatePostController::class)->middleware('auth:sanctum');
         Route::get('{id}', FindPostByIdController::class)->middleware('auth:sanctum');

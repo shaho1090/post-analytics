@@ -35,8 +35,6 @@ services:
 
     postgres-test:
         image: postgres:17
-        profiles:
-            - dev
         environment:
             POSTGRES_DB: "${DB_DATABASE_TESTING}"
             POSTGRES_USER: "${DB_USERNAME_TESTING}"

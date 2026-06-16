@@ -6,10 +6,11 @@ use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Facades\Storage;
 use User\Data\Models\User;
 
-#[Fillable(['user_id','title', 'content', 'image'])]
+#[Fillable(['user_id', 'title', 'content', 'image'])]
 class Post extends Model
 {
     /** @use HasFactory<\Post\Data\Factories\PostFactory> */
@@ -23,6 +24,12 @@ class Post extends Model
 
         return Storage::disk('public')->url($this->image);
     }
+
+    public function views(): HasMany
+    {
+        return $this->hasMany(PostView::class);
+    }
+
 
     public function author(): BelongsTo
     {

@@ -11,7 +11,7 @@ class StorePostViewTask extends Task
 {
     public function run(Post $post)
     {
-        $user = auth()->user();
+        $user = auth('sanctum')->user();
 
         $alreadyViewed = HasViewedPostTodayTask::new()->run(
             postId: $post->id,

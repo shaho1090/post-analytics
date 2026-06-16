@@ -16,13 +16,17 @@ class PostResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'id' => $this->resource->id,
-            'title' => $this->resource->title,
-            'content' => $this->resource->content,
-            'image' => $this->resource->image_url,
-            'author' => UserResource::make(
+            'id' => $this->id,
+            'title' => $this->title,
+            'content' => $this->content,
+            'image' => $this->image_url,
+            'author' => PostAuthorResource::make(
                 $this->whenLoaded('author')
-            )
+            ),
+            'views_count' => $this->views_count,
+            'unique_views_count' => $this->unique_views_count,
+            'created_at' => $this->created_at,
+            'updated_at' => $this->updated_at,
         ];
     }
 }
